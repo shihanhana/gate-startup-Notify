@@ -22,7 +22,10 @@ async function GetStartups() {
     .then((response) => {
         const body = JSON.parse(response.body);
         console.log(body);
-    });
+    })
+	.catch((error) => {
+		console.log(error);
+	});
 }
 
 //查询认购开盘的时间
