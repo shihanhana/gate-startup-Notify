@@ -5,7 +5,7 @@ const $ = API("gatestartup", true); // 定时通知gate新认购和开盘 --> �
 
 
 //查询所有正在进行的认购
-function GetStartups() {
+async function GetStartups() {
     const headers = { //请求头
         'Accept': 'application/json, text/plain, */*',
         'Accept-Language': 'zh-CN,zh;q=0.9',
@@ -14,7 +14,7 @@ function GetStartups() {
         'Referer': 'https://www.gate.io/zh/startup',
         'Referrer-Policy': 'strict-origin-when-cross-origin'
     };
-    $.http
+   await $.http
     .get({
       url: "https://www.gate.io/json_svr/startup_home",
       headers,
@@ -56,7 +56,7 @@ function GetCurrencyStartTime() {
 		})
 	})
 }
-
+console.log('开始运行');
 GetStartups();
 $.done()
 // prettier-ignore
