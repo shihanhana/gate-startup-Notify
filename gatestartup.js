@@ -1,4 +1,4 @@
-const $ = API("gatestartup", true); // 定时通知gate新认购和开盘 --> 无log输出
+const $ = API("gatestartup", false); // 定时通知gate新认购和开盘 --> 无log输出
 
 
 
