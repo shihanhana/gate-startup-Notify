@@ -1,12 +1,9 @@
 var LogDetails = true; //响应日志
 var $ = new Env('芝麻开门');
-$.msg($.name, "", "开始测试了 ⚠️");
-
 
 (async () => {
-   $.msg(await  monitorGateStartup());
-   $.msg($.name, "", "开盘时间 ⚠️");
-   $.msg(await GetCurrencyStartTime());
+    await  monitorGateStartup();
+    await monitorStartExchang();
 })().finally(() => {
     $.done();
 })
@@ -18,6 +15,12 @@ async function monitorGateStartup(){
         if(resJson && resJson.result == true){
             resJson.datas.underway_list.forEach(item=>{
                 $.log(item.curr_type)
+                //没有通知过
+                if(!$.getdata(item.curr_type)){
+                    $.msg("芝麻开门","认购",item.curr_type+ " 开始认购");
+                    $.setdata("false",item.curr_type);
+                }
+                $.log($.getdata(item.curr_type));
             })
         }else{
             $.error(resJson.msg);
