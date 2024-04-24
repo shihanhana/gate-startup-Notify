@@ -1,5 +1,8 @@
-var barkKey = ''; //Bark APP 通知推送key
+var barkKey = 'ytznBC3qYQNapXbA4VGM9U'; //Bark APP 通知推送key
 var $ = new Env('芝麻开门');
+
+
+$prefs.removeValueForKey("CURRENCY")
 
 (async () => {
     await  monitorGateStartup();
@@ -7,6 +10,9 @@ var $ = new Env('芝麻开门');
 })().finally(() => {
     $.done();
 })
+
+
+
 
 async function monitorGateStartup(){
     let res = await  GetStartups();
