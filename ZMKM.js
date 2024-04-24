@@ -59,7 +59,7 @@ async function monitorStartExchang(){
                 var givenDate = new Date(givenTimeStamp);
 
                 // 计算当前时间和给定时间之间的差值（单位：毫秒）
-                var difference = currentTimeStamp - givenTimeStamp;
+                var difference = currentTimeStamp - givenDate;
 
                 // 将差值转换为分钟
                 var differenceInMinutes = difference / (1000 * 60);
@@ -70,6 +70,8 @@ async function monitorStartExchang(){
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "即将开盘","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
                     localdata.key == true;
                     $.setjson(localdata,"CURRENCY");
+                }else{
+                    console.log(key + "时间差小于5分钟！");
                 }
            }
         }
@@ -124,9 +126,7 @@ async function GetCurrencyStartTime(currency){
      */
 async function BarkNotify(c, apiKey, title, body,sound,icon) {
     for (let i = 0; i < 3; i++) {
-        console.log(`🔷Bark notify >> Start push($ {
-            i + 1
-        })`);
+        console.log(`🔷Bark notify >> Start push(${i + 1})`);
         const s = await new Promise((resolve, reject) => {
             c.post({
                 url: 'https://api.day.app/push',
