@@ -2,7 +2,7 @@ var barkKey = 'ytznBC3qYQNapXbA4VGM9U'; //Bark APP 通知推送key
 var $ = new Env('芝麻开门');
 
 
-$prefs.removeValueForKey("CURRENCY");
+//$prefs.removeValueForKey("CURRENCY");
 
 (async () => {
     await  monitorGateStartup();
@@ -56,29 +56,18 @@ async function monitorStartExchang(){
            var jsonData = JSON.parse(res);
            //buy_start
            if(jsonData&& jsonData.buy_start >= 0){
-                // 获取当前时间的时间戳（单位：毫秒）
                 var currentTimeStamp = Date.now();
-
-                // 假设给定的时间戳为 timestamp
-                var givenTimeStamp = jsonData.buy_start; // 示例时间戳，这里需要替换成你实际的时间戳
-
-                // 将给定的时间戳转换为日期对象
+                var givenTimeStamp = jsonData.buy_start * 1000; // 示例时间戳，这里需要替换成你实际的时间戳
                 var givenDate = new Date(givenTimeStamp);
-
-                // 计算当前时间和给定时间之间的差值（单位：毫秒）
-                var difference = currentTimeStamp - givenDate;
-
-                // 将差值转换为分钟
+                var difference = givenDate -currentTimeStamp;
                 var differenceInMinutes = difference / (1000 * 60);
-
-                // 如果差值小于5分钟，则打印提示信息
                 if (differenceInMinutes < 5) {
                     console.log(key + "时间差小于5分钟！");
-                    BarkNotify($,barkKey,"芝麻开门",item.curr_type + "即将开盘","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
+                    BarkNotify($,barkKey,"芝麻开门",key + "  即将开盘,请注意！","bell","https://www.gate.io/images/apple-touch-icon-120x120.png");
                     localdata[key] == true;
                     $.setjson(localdata,"CURRENCY");
                 }else{
-                    console.log(key + "时间差小于5分钟！");
+                    console.log(key + "时间差大于5分钟！");
                 }
            }
         }
