@@ -127,7 +127,7 @@ async function GetCurrencyStartTime(currency){
      */
 async function BarkNotify(c, apiKey, title, body,sound,icon) {
     for (let i = 0; i < 3; i++) {
-        console.log(`🔷Bark notify >> Start push(${i + 1})`);
+        c.log(`🔷Bark notify >> Start push(${i + 1})`);
         const s = await new Promise((resolve, reject) => {
             c.post({
                 url: 'https://api.day.app/push',
@@ -146,6 +146,7 @@ async function BarkNotify(c, apiKey, title, body,sound,icon) {
                 })
             }, (error, response, data) => {
                 if (response && response.status === 200) {
+                    c.log(response);
                     resolve(1); 
                 } else {
                     reject(data || error); 
@@ -154,10 +155,10 @@ async function BarkNotify(c, apiKey, title, body,sound,icon) {
         });
         
         if (s === 1) {
-            console.log('✅Push success!');
+            c.log('✅Push success!');
             break
         } else {
-            console.log(`❌Push failed ! >>${s.message || s}`)
+            c.log(`❌Push failed ! >>${s.message || s}`)
         }
     }
 }
