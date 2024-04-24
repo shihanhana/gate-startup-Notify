@@ -2,9 +2,11 @@ var LogDetails = true; //响应日志
 var $ = new Env('芝麻开门');
 $.msg($.name, "", "开始测试了 ⚠️");
 
-(async () => {
-    GetStartups();
 
+(async () => {
+   $.msg(await  GetStartups());
+   $.msg($.name, "", "开盘时间 ⚠️");
+   $.msg(await GetCurrencyStartTime());
 })().finally(() => {
     $.done();
 })
@@ -23,13 +25,29 @@ async function GetStartups(){
             'Referrer-Policy': 'strict-origin-when-cross-origin'
         }
     }
-    let result = await $.http.get(option).then(response => {
-        $.log(JSON.stringify(response.headers));
+    let result = await $.http.post(option).then(response => {
         return response.body
-    })
-    $.log(result);
+    }).catch(error => {
+        console.error('请求失败:', error);
+    });
+    return result;
 }
 
+async function GetCurrencyStartTime(){
+    let option = {
+        url: "https://api.gateio.ws/api/v4/spot/currency_pairs/BTC_USDT",
+        headers: { //请求头
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    }
+    let result = await $.http.get(option).then(response => {
+        return response.body
+    }).catch(error => {
+        console.error('请求失败:', error);
+    });
+    return result;
+}
 
 
 
