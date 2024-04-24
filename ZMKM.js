@@ -2,6 +2,34 @@ var LogDetails = true; //响应日志
 var $ = new Env('芝麻开门');
 $.msg($.name, "", "开始测试了 ⚠️");
 
+(async () => {
+    GetStartups();
+
+})().finally(() => {
+    $.done();
+})
+
+
+
+async function GetStartups(){
+    let option = {
+        url: "https://www.gate.io/json_svr/startup_home",
+        headers: { //请求头
+            'Accept': 'application/json, text/plain, */*',
+            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'csrftoken': '1',
+            'X-Kl-Ajax-Request': 'Ajax_Request',
+            'Referer': 'https://www.gate.io/zh/startup',
+            'Referrer-Policy': 'strict-origin-when-cross-origin'
+        }
+    }
+    let result = await $.http.get(option).then(response => {
+        $.log(JSON.stringify(response.headers));
+        return response.body
+    })
+    $.log(result);
+}
+
 
 
 
