@@ -14,15 +14,16 @@ async function GetStartups() {
         'Referer': 'https://www.gate.io/zh/startup',
         'Referrer-Policy': 'strict-origin-when-cross-origin'
     };
-   await $.http
-    .get({
-      url: "https://www.gate.io/json_svr/startup_home",
-      headers,
-    })
-    .then((response) => {
-        const body = JSON.parse(response.body);
-        console.log(body);
-    })
+	console.log('开始运行');
+	await $.http
+	.get({
+		url: "https://www.gate.io/json_svr/startup_home",
+		headers,
+	})
+	.then((response) => {
+		const body = JSON.parse(response.body);
+		console.log(body);
+	})
 	.catch((error) => {
 		console.log(error);
 	});
@@ -59,7 +60,7 @@ function GetCurrencyStartTime() {
 		})
 	})
 }
-console.log('开始运行');
+
 GetStartups();
 $.done()
 // prettier-ignore
