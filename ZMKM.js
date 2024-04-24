@@ -16,17 +16,17 @@ async function monitorGateStartup(){
             resJson.datas.underway_list.forEach(item=>{
                 $.log(item.curr_type)
                 //初始化一下
-                if(!$.getjson("@CURRENCY"))
+                if(!$.getjson("CURRENCY"))
                 {
-                    $.setjson(JSON.parse('{"BTC": true}'),"@CURRENCY")
+                    $.setjson(JSON.parse('{"BTC": true}'),"CURRENCY")
                 }
-                var localdata = $.getjson("@CURRENCY");
+                var localdata = $.getjson("CURRENCY");
                 var keys = Object.keys(localdata);
                 if (!keys.includes("item.curr_type")) {
                     $.msg("芝麻开门","",item.curr_type+ " 开始认购");
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
                     localdata.curr_type = false;
-                    $.setjson(localdata,"@CURRENCY");
+                    $.setjson(localdata,"CURRENCY");
                     $.log(localdata);
                 } 
                 $.log($.getdata(item.curr_type));
@@ -41,7 +41,7 @@ async function monitorGateStartup(){
 }
 
 async function monitorStartExchang(){
-    var localdata = $.getjson("@CURRENCY");
+    var localdata = $.getjson("CURRENCY");
     
     for (var key in localdata) {
         if(localdata[key] == false){
@@ -69,7 +69,7 @@ async function monitorStartExchang(){
                     console.log(key + "时间差小于5分钟！");
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "即将开盘","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
                     localdata.key == true;
-                    $.setjson(localdata,"@CURRENCY");
+                    $.setjson(localdata,"CURRENCY");
                 }
            }
         }
