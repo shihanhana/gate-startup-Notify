@@ -23,9 +23,9 @@ async function monitorGateStartup(){
                 var localdata = $.getjson("CURRENCY");
                 var keys = Object.keys(localdata);
                 if (!keys.includes("item.curr_type")) {
-                    $.msg("芝麻开门","",item.curr_type+ " 开始认购");
+ 
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
-                    localdata.curr_type = false;
+                    localdata[curr_type] = false;
                     $.setjson(localdata,"CURRENCY");
                     $.log(localdata);
                 } 
@@ -46,6 +46,7 @@ async function monitorStartExchang(){
     for (var key in localdata) {
         if(localdata[key] == false){
            var res = await GetCurrencyStartTime(key);
+           $.log(res);
            var jsonData = JSON.parse(res);
            //buy_start
            if(jsonData&& jsonData.buy_start >= 0){
@@ -156,9 +157,7 @@ async function BarkNotify(c, apiKey, title, body,sound,icon) {
             console.log('✅Push success!');
             break
         } else {
-            console.log(`❌Push failed ! >>$ {
-                s.message || s
-            }`)
+            console.log(`❌Push failed ! >>${s.message || s}`)
         }
     }
 }
