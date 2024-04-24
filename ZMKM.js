@@ -1,3 +1,10 @@
+/*********************
+QuantumultX 远程脚本配置:
+*********************
+[task_local]
+0 9 * * * https://raw.githubusercontent.com/shihanhana/gate-startup-Notify/main/ZMKM.js, tag=芝麻开门, img-url=https://www.gate.io/images/apple-touch-icon-120x120.png, enabled=true
+*/
+
 var barkKey = 'ytznBC3qYQNapXbA4VGM9U'; //Bark APP 通知推送key
 var $ = new Env('芝麻开门');
 
@@ -28,7 +35,7 @@ async function monitorGateStartup(){
                 }
                 var localdata = $.getjson("CURRENCY");
                 var keys = Object.keys(localdata);
-                if (!keys.includes("item.curr_type")) {
+                if (!keys.includes(item.curr_type)) {
  
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
                     localdata[item.curr_type] = false;
