@@ -4,13 +4,33 @@ $.msg($.name, "", "开始测试了 ⚠️");
 
 
 (async () => {
-   $.msg(await  GetStartups());
+   $.msg(await  monitorGateStartup());
    $.msg($.name, "", "开盘时间 ⚠️");
    $.msg(await GetCurrencyStartTime());
 })().finally(() => {
     $.done();
 })
 
+async function monitorGateStartup(){
+    let res = await  GetStartups();
+    try{
+        resJson = JSON.parse(res);
+        if(resJson && resJson.result == true){
+            resJson.datas.underway_list.forEach(item=>{
+                $.log(item.curr_type)
+            })
+        }else{
+            $.error(resJson.msg);
+        }
+    }catch(err){
+        $.error(err)
+    }
+
+}
+
+async function monitorStartExchang(){
+    
+}
 
 
 async function GetStartups(){
