@@ -2,7 +2,7 @@ var barkKey = 'ytznBC3qYQNapXbA4VGM9U'; //Bark APP 通知推送key
 var $ = new Env('芝麻开门');
 
 
-$prefs.removeValueForKey("CURRENCY")
+$prefs.removeValueForKey("CURRENCY");
 
 (async () => {
     await  monitorGateStartup();
@@ -31,9 +31,9 @@ async function monitorGateStartup(){
                 if (!keys.includes("item.curr_type")) {
  
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
-                    localdata[curr_type] = false;
+                    localdata[item.curr_type] = false;
                     $.setjson(localdata,"CURRENCY");
-                    $.log(localdata);
+                    $.log(JSON.stringify( localdata));
                 } 
                 $.log($.getdata(item.curr_type));
             })
@@ -75,7 +75,7 @@ async function monitorStartExchang(){
                 if (differenceInMinutes < 5) {
                     console.log(key + "时间差小于5分钟！");
                     BarkNotify($,barkKey,"芝麻开门",item.curr_type + "即将开盘","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
-                    localdata.key == true;
+                    localdata[key] == true;
                     $.setjson(localdata,"CURRENCY");
                 }else{
                     console.log(key + "时间差小于5分钟！");
@@ -145,7 +145,7 @@ async function BarkNotify(c, apiKey, title, body,sound,icon) {
                     body: body,
                     device_key: apiKey,
                     ext_params: {
-                        group: t
+                        group: title
                     },
                     icon: icon,
                     sound: sound
