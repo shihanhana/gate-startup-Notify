@@ -2,7 +2,7 @@
 QuantumultX 远程脚本配置:
 *********************
 [task_local]
-0 9 * * * https://raw.githubusercontent.com/shihanhana/gate-startup-Notify/main/ZMKM.js, tag=芝麻开门, img-url=https://www.gate.io/images/apple-touch-icon-120x120.png, enabled=true
+0/2 * * * * https://raw.githubusercontent.com/shihanhana/gate-startup-Notify/main/ZMKM.js, tag=芝麻开门, img-url=https://www.gate.io/images/apple-touch-icon-120x120.png, enabled=true
 */
 
 var barkKey = 'ytznBC3qYQNapXbA4VGM9U'; //Bark APP 通知推送key
@@ -37,7 +37,7 @@ async function monitorGateStartup(){
                 var keys = Object.keys(localdata);
                 if (!keys.includes(item.curr_type)) {
  
-                    BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","bell","https://www.gate.io/images/apple-touch-icon-120x120.png")
+                    BarkNotify($,barkKey,"芝麻开门",item.curr_type + "开始认购","multiwayinvitation","https://www.gate.io/images/apple-touch-icon-120x120.png")
                     localdata[item.curr_type] = false;
                     $.setjson(localdata,"CURRENCY");
                     $.log(JSON.stringify( localdata));
@@ -69,8 +69,8 @@ async function monitorStartExchang(){
                 var differenceInMinutes = difference / (1000 * 60);
                 if (differenceInMinutes < 5) {
                     console.log(key + "时间差小于5分钟！");
-                    BarkNotify($,barkKey,"芝麻开门",key + "  即将开盘,请注意！","bell","https://www.gate.io/images/apple-touch-icon-120x120.png");
-                    localdata[key] == true;
+                    BarkNotify($,barkKey,"芝麻开门",key + "  即将开盘,请注意！","multiwayinvitation","https://www.gate.io/images/apple-touch-icon-120x120.png");
+                    localdata[key] = true;
                     $.setjson(localdata,"CURRENCY");
                 }else{
                     console.log(key + "时间差大于5分钟！");
