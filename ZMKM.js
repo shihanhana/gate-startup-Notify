@@ -42,7 +42,6 @@ async function monitorGateStartup(){
                     $.setjson(localdata,"CURRENCY");
                     $.log(JSON.stringify( localdata));
                 } 
-                $.log($.getdata(item.curr_type));
             })
         }else{
             $.error(resJson.msg);
